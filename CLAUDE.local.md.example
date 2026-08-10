@@ -1,0 +1,8 @@
+<!-- Rename this to CLAUDE.local.md (already gitignored) for your own
+     machine-specific preferences that shouldn't be shared with the team. -->
+
+# Personal preferences
+
+- My local dev server runs on port [xxxx], not the team default.
+- I use [test data / sandbox URL / API key alias] for local testing — see [where].
+- I prefer [e.g., verbose test output / a specific editor integration].

@@ -1,0 +1,3 @@
+# Personal, machine-local Claude instructions — never shared via source control.
+CLAUDE.local.md
+.claude/settings.local.json
