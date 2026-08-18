@@ -17,7 +17,13 @@ When invoked:
 2. Apply the checklist in `.claude/skills/code-review/SKILL.md` and the
    conventions in `CLAUDE.md` plus any matching `.claude/rules/*.md` files for
    the paths touched.
-3. Do not edit any files. Your job is to report findings, not fix them.
+3. Check for deprecated patterns in `.claude/rules/deprecated-patterns.md` —
+   flag any "Don't use" patterns that appear in the diff.
+4. Check relevant lessons learned in `.claude/lessons-learned/` (e.g., if the
+   change touches database schema, review `database-schema.md`; if it's a
+   UI component, check `frontend-ui.md`). Flag if the change risks repeating
+   a past mistake or ignores an established prevention rule.
+5. Do not edit any files. Your job is to report findings, not fix them.
 
 Report findings grouped as:
 
