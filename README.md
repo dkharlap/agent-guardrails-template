@@ -19,13 +19,15 @@ isolated reviewers, and a place to record lessons learned.
 | `.claude/skills/design-system-lookup/` | Skill | On request or when relevant | Procedure for consulting `@grafana/ui` source (if installed) or its hosted Storybook before building UI |
 | `.claude/skills/feature-scaffolding/` | Skill | On request or when relevant | Add a new endpoint/component/module |
 | `.claude/skills/db-migration/` | Skill | On request or when relevant | Write/test/roll back a migration |
+| `.claude/skills/add-lesson-learned/` | Skill | On request or when relevant | Add a new lesson learned entry (guides to appropriate category file) |
 | `.claude/skills/release-deploy/` | Skill | Only via `/release-deploy` (manual invocation only) | Release checklist + rollback plan |
 | `.claude/skills/debug-triage/` | Skill | On request or when relevant | Reproduce/diagnose/bisect a bug |
 | `.claude/skills/code-review/` | Skill | On request or when relevant | Self-review checklist before opening a PR |
-| `.claude/agents/reviewer.md` | Subagent | Delegated explicitly or proactively after code changes | Independent, isolated code review |
+| `.claude/agents/reviewer.md` | Subagent | Delegated explicitly or proactively after code changes | Independent, isolated code review (checks deprecated patterns and relevant lessons learned) |
 | `.claude/agents/research-auditor.md` | Subagent | Delegated for large searches/audits | Dependency audits, log analysis, broad codebase search |
 | `.claude/settings.json` + `.claude/hooks/*.sh` | Hooks | Automatically, every matching tool call | Guardrail against editing secrets, auto-format after edits, run related tests |
-| `LESSONS_LEARNED.md` | Reference doc | Read on demand (not auto-loaded) | Institutional memory / postmortems |
+| `.claude/lessons-learned/INDEX.md` | Reference doc | Read on demand (not auto-loaded) | Index and guide to institutional memory organized by category |
+| `.claude/lessons-learned/*.md` | Reference doc (category files) | Read on demand by relevant skills/agent or when investigating | Postmortems and lessons organized by domain (database-schema, testing-qa, performance, security-auth, api-integration, frontend-ui, tooling-cicd, code-quality, process-workflow) |
 | `DESIGN_SYSTEM_NOTES.md` | Reference doc (cache) | Read on demand by `design-system-lookup` | Prior lookups of design-system components/tokens, so they aren't re-derived or re-browsed every time |
 
 ## Why it's split this way
@@ -46,7 +48,7 @@ only the summary.
 
 ## Adopting this in a new project
 
-1. Copy `CLAUDE.md`, `.claude/`, `LESSONS_LEARNED.md`, `CLAUDE.local.md.example`,
+1. Copy `CLAUDE.md`, `.claude/`, `CLAUDE.local.md.example`,
    and the `.gitignore` entries into the project root.
 2. Open `CLAUDE.md` and replace every `[bracketed placeholder]` — tech stack,
    commands, repo structure, conventions. Delete anything that doesn't apply;
@@ -72,9 +74,12 @@ only the summary.
    the package/Storybook/source-repo details with that one instead. If this
    project has no design system to follow, delete the rule file and the
    `design-system-lookup` skill.
-9. Delete the example entry in `LESSONS_LEARNED.md` and `DESIGN_SYSTEM_NOTES.md`
-   and start adding real ones as they happen — these files are only valuable
-   if the team actually uses them.
+9. Lessons learned are organized in `.claude/lessons-learned/` by category
+   (database-schema, testing-qa, performance, security-auth, api-integration,
+   frontend-ui, tooling-cicd, code-quality, process-workflow). Start with
+   empty category files; the team will add real entries via the `add-lesson-learned`
+   skill as they happen. Customize category names or add new ones to match your
+   team's needs.
 10. In Claude Code, run `/context` to confirm `CLAUDE.md` loaded, and `/hooks`
     to confirm the hooks registered.
 
@@ -85,8 +90,10 @@ only the summary.
 - When Claude makes the same mistake twice, that's the signal to add a rule,
   not just a one-off correction in chat.
 - Periodically prune `.claude/rules/deprecated-patterns.md` and
-  `LESSONS_LEARNED.md` — remove entries once the underlying pattern is gone
-  from the codebase and unlikely to recur.
+  `.claude/lessons-learned/*.md` — remove entries once the underlying pattern
+  is gone from the codebase and unlikely to recur. Use the `add-lesson-learned`
+  skill to document team insights; each category file stays focused and is only
+  loaded when relevant.
 - If a `.claude/rules/*.md` file keeps growing, that's usually a sign part of
   it should become a skill instead (a fact vs. a procedure).
 
