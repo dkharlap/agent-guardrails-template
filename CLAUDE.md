@@ -3,9 +3,6 @@
      .claude/rules/. If it's a multi-step procedure, move it to .claude/skills/.
      Ask of every line: "If I remove this, will Claude make a mistake?" -->
 
-# Users Admin
-
-A standalone Next.js admin tool to view and edit users stored in PostgreSQL. Uses shadcn/ui components for visuals. Intended for internal operators.
 
 ## Tech stack
 
